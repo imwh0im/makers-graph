@@ -9,10 +9,10 @@ import { approveNode, confirmEdge, handleTool, TOOL_NAMES, TOOLS } from './tools
 
 type $ = EngineInterface
 
-const PREFIX = 'mcp__todo-graph__'
+const PREFIX = 'mcp__makers-graph__'
 const EDIT_TOOLS = new Set(['Edit', 'Write', 'MultiEdit', 'NotebookEdit'])
 
-const active = atom({ plugin: 'todo-graph', key: 'active' } as const, null as ActiveGraph | null, { shape: 'active-1' })
+const active = atom({ plugin: 'makers-graph', key: 'active' } as const, null as ActiveGraph | null, { shape: 'active-1' })
 
 const USAGE = `/graph 사용법
   /graph [list]                   그래프 목록
@@ -23,7 +23,7 @@ const USAGE = `/graph 사용법
   /graph confirm <from> <to>      간선 배선 확인
   /graph off                      모드 끄기`
 
-const RULES = (g: ActiveGraph, base: string): string => `## todo-graph 모드 (활성 그래프: ${g.id})
+const RULES = (g: ActiveGraph, base: string): string => `## makers-graph 모드 (활성 그래프: ${g.id})
 
 작업 목록을 노드·간선 그래프로 관리한다. 노드는 격리된 작업 단위이고, 간선은 의존이자 출력 포트 → 입력 포트 배선이다.
 
@@ -75,12 +75,10 @@ export const register: Register = (on, options) => {
   on('session.start', async ($, e, next) => {
     await $.command.register({
       name: 'graph',
-      description: 'todo-graph 모드: 그래프 목록·도식·노드 스펙을 보고, 노드 승인과 배선 확인을 한다',
+      description: 'makers-graph 모드: 그래프 목록·도식·노드 스펙을 보고, 노드 승인과 배선 확인을 한다',
       argumentHint: '[list | use <graph-id> | diagram | show <node> | approve <node> | confirm <from> <to> | off]',
     })
     for (const tool of TOOLS) await $.tool.register({ ...tool, isDeferred: true })
-    // Earlier versions opened a pane; a reload keeps it open with nothing left to draw it.
-    await $.ui.close({ id: 'todo-graph' }).catch(() => undefined)
     return next(e)
   })
 
@@ -89,7 +87,7 @@ export const register: Register = (on, options) => {
     if (verb === 'list') return { text: await graphList($) }
     if (verb === 'off') {
       await update($, active, () => null)
-      return { text: 'todo-graph 모드를 껐다.', context: ['todo-graph 모드가 꺼졌다. 이후로는 그래프 규칙을 따르지 않는다.'] }
+      return { text: 'makers-graph 모드를 껐다.', context: ['makers-graph 모드가 꺼졌다. 이후로는 그래프 규칙을 따르지 않는다.'] }
     }
     if (verb === 'use') {
       if (!a) return { text: USAGE }
@@ -126,7 +124,7 @@ export const register: Register = (on, options) => {
     const result = await next(e)
     const g = await read($, active)
     if (!g) return result
-    return { sections: [...result.sections, { id: 'todo-graph:rules', text: RULES(g, await baseOf($)), scope: 'session' as const }] }
+    return { sections: [...result.sections, { id: 'makers-graph:rules', text: RULES(g, await baseOf($)), scope: 'session' as const }] }
   })
 
   on('tool.call', async ($, e, next) => {
@@ -140,7 +138,7 @@ export const register: Register = (on, options) => {
       }
     }
     if (EDIT_TOOLS.has(tool) && (await isGraphPath($, e as unknown as Record<string, unknown>, await baseOf($)))) {
-      return { deny: `todo-graph: 그래프 파일은 직접 고칠 수 없다. ${PREFIX}* 도구를 쓸 것` }
+      return { deny: `makers-graph: 그래프 파일은 직접 고칠 수 없다. ${PREFIX}* 도구를 쓸 것` }
     }
     return next(e)
   }).catch(($, e, next) => next(e))

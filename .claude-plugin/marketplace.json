@@ -7,9 +7,9 @@
   },
   "plugins": [
     {
-      "name": "todo-graph",
+      "name": "makers-graph",
       "description": "Break work into a graph of isolated nodes wired by ports. Each node's spec is approved by a person before it runs.",
-      "source": "./plugins/todo-graph",
+      "source": "./plugins/makers-graph",
       "category": "productivity",
       "tags": ["planning", "todo", "graph", "spec"]
     }

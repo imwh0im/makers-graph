@@ -1,6 +1,6 @@
 # makers-graph
 
-A Claude Code marketplace holding **todo-graph**: a mode that turns a task list into a graph of nodes and edges.
+**makers-graph** is a Claude Code plugin: a mode that turns a task list into a graph of nodes and edges.
 
 - A **node** is an isolated unit of work. It never names another node; it declares the input ports it needs and the output ports it produces.
 - An **edge** is both a dependency and a wiring: it binds an output port of one node to an input port of the next.
@@ -14,7 +14,7 @@ Graphs live as JSON under `.todos/` at the project root (the git top level), so 
 At the prompt of a terminal session:
 
 ```
-/plugin install todo-graph --marketplace imwh0im/makers-graph
+/plugin install makers-graph --marketplace imwh0im/makers-graph
 ```
 
 Answer `y` to add the marketplace, then pick a scope (user scope loads it in every session).
@@ -22,7 +22,7 @@ Answer `y` to add the marketplace, then pick a scope (user scope loads it in eve
 From a shell:
 
 ```
-claude plugin install todo-graph --marketplace imwh0im/makers-graph
+claude plugin install makers-graph --marketplace imwh0im/makers-graph
 ```
 
 In the desktop app, where `/plugin` does not run: click + next to the prompt box, then Plugins, Add marketplace with `imwh0im/makers-graph`, then Add plugin.
