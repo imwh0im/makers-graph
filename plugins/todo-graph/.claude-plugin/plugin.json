@@ -1,0 +1,15 @@
+{
+  "name": "todo-graph",
+  "version": "0.1.0",
+  "description": "작업을 노드·간선 그래프로 나눠 노드마다 스펙을 정의·승인하는 모드. 도식·노드 스펙·승인은 /graph 명령으로 채팅에서 한다",
+  "author": { "name": "imwh0im", "url": "https://github.com/imwh0im" },
+  "types": "./types/index.d.ts",
+  "userConfig": {
+    "dirName": {
+      "type": "string",
+      "title": "그래프 디렉터리 이름",
+      "description": "프로젝트 루트 아래 그래프를 두는 디렉터리 이름",
+      "default": ".todos"
+    }
+  }
+}

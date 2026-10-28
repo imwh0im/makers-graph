@@ -1,0 +1,17 @@
+{
+  "name": "makers-graph",
+  "description": "Claude Code plugins by imwh0im for planning and running work as a graph.",
+  "owner": {
+    "name": "imwh0im",
+    "url": "https://github.com/imwh0im"
+  },
+  "plugins": [
+    {
+      "name": "todo-graph",
+      "description": "Break work into a graph of isolated nodes wired by ports. Each node's spec is approved by a person before it runs.",
+      "source": "./plugins/todo-graph",
+      "category": "productivity",
+      "tags": ["planning", "todo", "graph", "spec"]
+    }
+  ]
+}
